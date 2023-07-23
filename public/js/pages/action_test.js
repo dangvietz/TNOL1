@@ -316,6 +316,7 @@ $(document).ready(function () {
             manhom: getGroupSelected(),
           },
           success: function (response) {
+            console.log(response)
             if (response) {
               if ($("#tudongsoande").prop("checked")) location.href = "./test";
               else location.href = `./test/select/${response}`;

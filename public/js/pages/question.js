@@ -45,7 +45,6 @@ Dashmix.onLoad(() =>
 );
 
 function showData(data) {
-  console.log(data)
   let html = "";
   let index = 1;
   let offset = (this.valuePage.curPage - 1) * this.option.limit;

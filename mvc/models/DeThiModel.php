@@ -20,9 +20,9 @@ class DeThiModel extends DB
     public function create_dethi_auto($made, $monhoc, $chuong, $socaude, $socautb, $socaukho)
     {
         $valid = true;
-        $sql_caude = "SELECT * FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 1 and ";
-        $sql_cautb = "SELECT * FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 2 and ";
-        $sql_caukho = "SELECT * FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 3 and ";
+        $sql_caude = "SELECT * FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = '$monhoc' and ch.dokho = 1 and ";
+        $sql_cautb = "SELECT * FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = '$monhoc' and ch.dokho = 2 and ";
+        $sql_caukho = "SELECT * FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = '$monhoc' and ch.dokho = 3 and ";
         $countChuong = count($chuong) - 1;
         $detailChuong = "(";
         $i = 0;
@@ -442,7 +442,8 @@ class DeThiModel extends DB
                     $query .= " GROUP BY DT.made ORDER BY DT.made DESC";
                     break;
                 case "getQuestionsForTest":
-                    $query = "SELECT cauhoi.*, fnStripTags(noidung) AS noidungplaintext FROM cauhoi,phancong WHERE cauhoi.mamonhoc = phancong.mamonhoc AND trangthai = 1 AND phancong.manguoidung = " . $args['id'] . " AND cauhoi.mamonhoc = " . $args['mamonhoc'];
+                    $monhoc = $args['mamonhoc'];
+                    $query = "SELECT cauhoi.*, fnStripTags(noidung) AS noidungplaintext FROM cauhoi,phancong WHERE cauhoi.mamonhoc = phancong.mamonhoc AND trangthai = 1 AND phancong.manguoidung = " . $args['id'] . " AND cauhoi.mamonhoc = '$monhoc'";
                     if (isset($filter['machuong'])) {
                         $query .= " AND machuong = " . $filter['machuong'];
                     }
@@ -538,7 +539,7 @@ class DeThiModel extends DB
         // Định dạng lại dưới dạng Y-m-d H:i:s
         $thoigianbatdau = date('Y-m-d H:i:s', $thoigianbatdau_timestamp);
         $thoigianketthuc = date('Y-m-d H:i:s', $thoigianketthuc_timestamp);
-        $this->updateThoiGianThi($dethi, $thoigianbatdau, $thoigianketthuc);
+        $this->updateThoiGianThi($dethi, $thoigianbatdau, $thoigianketthuc,$thoigian);
     }
 
     public function updateThoiGianThi($dethi, $thoigianbatdau, $thoigianketthuc,$thoigian)
@@ -595,7 +596,7 @@ class DeThiModel extends DB
         // Định dạng lại dưới dạng Y-m-d H:i:s
         $thoigianbatdau = date('Y-m-d H:i:s', $thoigianbatdau_timestamp);
         $thoigianketthuc = date('Y-m-d H:i:s', $thoigianketthuc_timestamp);
-        $this->updateThoiGianThi($dethi, $thoigianbatdau, $thoigianketthuc);
+        $this->updateThoiGianThi($dethi, $thoigianbatdau, $thoigianketthuc,$thoigian);
         return $check;
     }
 }

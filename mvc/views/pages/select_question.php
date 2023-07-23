@@ -96,7 +96,7 @@
                 </div>
                 <div class="block-content">
                     <h4 class="text-center mb-2" id="name-test"></h4>
-                    <p class="text-center text-muted">Thời gian: <span id="test-time"></span> phút</p>
+                    <!-- <p class="text-center text-muted">Thời gian: <span id="test-time"></span> phút</p> -->
                     <div id="list-question-of-test">
                         <!-- Danh sách câu hỏi của đề thi  -->
                     </div>

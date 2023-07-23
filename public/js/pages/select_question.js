@@ -97,7 +97,7 @@ function getQuestionOfTest() {
 // Đợi khi ajax getInfoTest() thực hiện hoàn tất
 $.when(getInfoTest(),getQuestionOfTest()).done(function(){
     $("#name-test").text(infoTest.tende)
-    $("#test-time").text(infoTest.thoigianthi);
+    // $("#test-time").text(infoTest.thoigianthi);
     let slgioihan = [0,infoTest.socaude,infoTest.socautb,infoTest.socaukho]
     let arr_slch = countQuantityLevel(arrQuestion);
 

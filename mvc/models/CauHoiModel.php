@@ -45,7 +45,7 @@ class CauHoiModel extends DB{
 
     public function getAllBySubject($mamonhoc)
     {
-        $sql = "SELECT * FROM `cauhoi` WHERE `mamonhoc` = $mamonhoc";
+        $sql = "SELECT * FROM `cauhoi` WHERE `mamonhoc` = '$mamonhoc'";
         $result = mysqli_query($this->con,$sql);
         return mysqli_fetch_assoc($result);
     }
