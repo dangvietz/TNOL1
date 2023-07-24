@@ -4,8 +4,13 @@ class NguoiDungModel extends DB
 
     public function create($id, $email, $fullname, $password, $ngaysinh, $gioitinh, $role, $trangthai, $lop)
     {
+        if($role != 11) $lop=NULL;
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO `nguoidung`(`id`, `email`,`hoten`, `gioitinh`,`ngaysinh`,`matkhau`,`trangthai`, `manhomquyen`, `malop`) VALUES ('$id','$email','$fullname','$gioitinh','$ngaysinh','$password',$trangthai, $role,$lop)";
+        if($role != 11) {
+            $sql = "INSERT INTO `nguoidung`(`id`, `email`,`hoten`, `gioitinh`,`ngaysinh`,`matkhau`,`trangthai`, `manhomquyen`, `malop`) VALUES ('$id','$email','$fullname','$gioitinh','$ngaysinh','$password','$trangthai', '$role', NULL)";
+        } else {
+            $sql = "INSERT INTO `nguoidung`(`id`, `email`,`hoten`, `gioitinh`,`ngaysinh`,`matkhau`,`trangthai`, `manhomquyen`, `malop`) VALUES ('$id','$email','$fullname','$gioitinh','$ngaysinh','$password','$trangthai', '$role','$lop')";
+        }
         $check = true;
         $result = mysqli_query($this->con, $sql);
         if (!$result) {
@@ -280,7 +285,10 @@ class NguoiDungModel extends DB
 
     public function getQuery($filter, $input, $args)
     {
-        $query = "SELECT ND.*, NQ.tennhomquyen, L.tenlop FROM nguoidung ND, nhomquyen NQ, lop L WHERE ND.manhomquyen = NQ.manhomquyen AND ND.malop = L.malop";
+        $query = "SELECT ND.*, NQ.tennhomquyen, L.tenlop 
+        FROM nguoidung ND
+        LEFT JOIN nhomquyen NQ ON ND.manhomquyen = NQ.manhomquyen
+        LEFT JOIN lop L ON ND.malop = L.malop WHERE ND.manhomquyen = NQ.manhomquyen";
         if (isset($filter['role'])) {
             $query .= " AND ND.manhomquyen = " . $filter['role'];
         }
@@ -293,7 +301,7 @@ class NguoiDungModel extends DB
 
     public function checkUser($mssv, $email)
     {
-        $sql = "SELECT * FROM `nguoidung` WHERE `id` = $mssv OR `email` = '$email'";
+        $sql = "SELECT * FROM `nguoidung` WHERE `id` = '$mssv' OR `email` = '$email'";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while ($row = mysqli_fetch_assoc($result)) {

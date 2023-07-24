@@ -69,6 +69,7 @@ Dashmix.onLoad(() =>
 );
 
 const showData = function (users) {
+  console.log(users)
   let html = "";
   users.forEach((user) => {
     html += `<tr>
@@ -453,6 +454,19 @@ $(document).ready(function () {
     $("#user_status").prop("checked", 1);
     $("#ps_user_group").val("");
   }
+
+  $(".class-show").hide()
+
+  $("#user_nhomquyen").on('change',function (e) { 
+    e.preventDefault();
+    let q = $("#user_nhomquyen").val()
+    if(q==11){
+      $(".class-show").show()
+    } else {
+      $(".class-show").hide()
+      $("#user_lop").val(1).trigger("change");
+    }
+  });
 
   $(".filtered-by-role").click(function (e) {
     e.preventDefault();

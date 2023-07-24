@@ -107,7 +107,7 @@
                             <select class="js-select2 form-select data-nhomquyen" data-tab="1" id="user_nhomquyen" name="user_nhomquyen" style="width: 100%;" data-placeholder="Choose one..">
                             </select>
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-4 class-show">
                             <label for="user_nhomquyen" class="form-label">Lớp</label>
                             <select class="js-select2 form-select data-nhomquyen" data-tab="1" id="user_lop" name="user_lop" style="width: 100%;" data-placeholder="Choose one..">
                             </select>
